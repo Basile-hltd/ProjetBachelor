@@ -9,6 +9,7 @@ class Serial():
         self.Run = True
 
         self.PortOpen = False
+        self.PortName = ''
         self.BaudRate = 9600
         self.Timeout = 1
 
@@ -25,13 +26,6 @@ class Serial():
     def ScanCOM(self):
         ports = serial.tools.list_ports.comports()
 
-        with self.MainThreadLock:
-            if len(ports):
-                self.PortOpen = True
-
-            else:
-                self.PortOpen = False
-
         for port in ports:
             try:
                 with serial.Serial(port.name, self.BaudRate, timeout=self.Timeout) as ser:
@@ -44,5 +38,15 @@ class Serial():
                         rep = ser.read_all()
                         print("Port", port.name, ":",rep)
 
+                        if rep == "dsPIC RF Ack":
+                            self.PortName = port.name
+                        
+                        with self.MainThreadLock:
+                            self.PortOpen = True
+                        
+
             except (serial.SerialException, OSError) as e:
+                with self.MainThreadLock:
+                            self.PortOpen = False
+
                 print("Erreur sur", port.name, ":",e)
