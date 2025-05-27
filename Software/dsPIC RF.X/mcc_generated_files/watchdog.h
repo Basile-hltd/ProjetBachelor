@@ -1,23 +1,23 @@
 /**
-  Generated main.c file from MPLAB Code Configurator
+  WATCHDOG Generated Driver File
 
   @Company
     Microchip Technology Inc.
 
   @File Name
-    main.c
+    watchdog.h
 
   @Summary
-    This is the generated main.c using PIC24 / dsPIC33 / PIC32MM MCUs.
+    This is the generated driver implementation file for the WATCHDOG driver using PIC24 / dsPIC33 / PIC32MM MCUs
 
   @Description
-    This source file provides main entry point for system initialization and application code development.
+    This header file provides implementations for driver APIs for WATCHDOG.
     Generation Information :
         Product Revision  :  PIC24 / dsPIC33 / PIC32MM MCUs - 1.171.5
         Device            :  dsPIC33CK256MP508
     The generated drivers are tested against the following:
         Compiler          :  XC16 v2.10
-        MPLAB 	          :  MPLAB X v6.05
+        MPLAB             :  MPLAB X v6.05
 */
 
 /*
@@ -42,29 +42,51 @@
     TERMS.
 */
 
-/**
-  Section: Included Files
-*/
-#include "mcc_generated_files/system.h"
-#include "mcc_generated_files/pin_manager.h"
+#ifndef WATCHDOG_H
+#define	WATCHDOG_H
 
-/*
-                         Main application
+/**
+  Section: Type defines
+ */ 
+#define WATCHDOG_CLR_KEY 0x5743
+
+/**
+ * Enables Watch Dog Timer (WDT) using the software bit.
+ * @example
+ * <code>
+ * WATCHDOG_TimerSoftwareEnable();
+ * </code>
  */
-int main(void)
+inline static void WATCHDOG_TimerSoftwareEnable(void)
 {
-    // initialize the device
-    SYSTEM_Initialize();
-    
-    RGB_Red_SetHigh();
-    
-    while (1)
-    {
-        // Add your application code
-    }
-    return 1; 
+    WDTCONLbits.ON = 1;
 }
+
+/**
+ * Disables Watch Dog Timer (WDT) using the software bit.
+ * @example
+ * <code>
+ * WATCHDOG_TimerSoftwareDisable();
+ * </code>
+ */
+inline static void WATCHDOG_TimerSoftwareDisable(void)
+{
+    WDTCONLbits.ON = 0;
+}
+
+/**
+ * Clears the Watch Dog Timer (WDT).
+ * @example
+ * <code>
+ * WATCHDOG_TimerClear();
+ * </code>
+ */
+inline static void WATCHDOG_TimerClear(void)
+{
+    WDTCONH = WATCHDOG_CLR_KEY;
+}
+
+#endif	/* WATCHDOG_H */
 /**
  End of File
 */
-

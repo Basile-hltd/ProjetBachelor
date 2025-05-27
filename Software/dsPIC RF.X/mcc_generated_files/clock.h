@@ -1,23 +1,23 @@
 /**
-  Generated main.c file from MPLAB Code Configurator
+  @Generated PIC24 / dsPIC33 / PIC32MM MCUs Source File
 
-  @Company
+  @Company:
     Microchip Technology Inc.
 
-  @File Name
-    main.c
+  @File Name:
+    clock.h
 
-  @Summary
-    This is the generated main.c using PIC24 / dsPIC33 / PIC32MM MCUs.
+  @Summary:
+    This is the clock.h file generated using PIC24 / dsPIC33 / PIC32MM MCUs
 
-  @Description
-    This source file provides main entry point for system initialization and application code development.
+  @Description:
+    This header file provides implementations for driver APIs for all modules selected in the GUI.
     Generation Information :
         Product Revision  :  PIC24 / dsPIC33 / PIC32MM MCUs - 1.171.5
         Device            :  dsPIC33CK256MP508
     The generated drivers are tested against the following:
         Compiler          :  XC16 v2.10
-        MPLAB 	          :  MPLAB X v6.05
+        MPLAB             :  MPLAB X v6.05
 */
 
 /*
@@ -42,29 +42,59 @@
     TERMS.
 */
 
+#ifndef CLOCK_H
+#define	CLOCK_H
+
 /**
   Section: Included Files
 */
-#include "mcc_generated_files/system.h"
-#include "mcc_generated_files/pin_manager.h"
 
-/*
-                         Main application
+#include <stdbool.h>
+
+#ifndef _XTAL_FREQ
+#define _XTAL_FREQ  150000000UL
+#endif
+
+#define CLOCK_SystemFrequencyGet()        (150000000UL)
+
+#define CLOCK_PeripheralFrequencyGet()    (CLOCK_SystemFrequencyGet() / 2)
+
+#define CLOCK_InstructionFrequencyGet()   (CLOCK_SystemFrequencyGet() / 2)
+/**
+ * @Param
+    none
+ * @Returns
+    none
+ * @Description
+    Initializes the oscillator to the default states configured in the
+ *                  MCC GUI
+ * @Example
+    CLOCK_Initialize(void);
  */
-int main(void)
-{
-    // initialize the device
-    SYSTEM_Initialize();
-    
-    RGB_Red_SetHigh();
-    
-    while (1)
-    {
-        // Add your application code
-    }
-    return 1; 
-}
+void CLOCK_Initialize(void);
+
+/**
+  @Summary
+    This API tells whether Auxiliary PLL is locked or not.
+
+  @Description
+    This routine returns true if Auxiliary PLL is locked else returns false.
+
+  @Param
+    None.
+
+  @Returns
+    Returns true if Auxiliary PLL is locked else returns false.
+ 
+  @Example 
+    <code>
+    bool lockStatus;
+    lockStatus = CLOCK_AuxPllLockStatusGet();
+    </code>
+*/
+bool CLOCK_AuxPllLockStatusGet();
+
+#endif	/* CLOCK_H */
 /**
  End of File
 */
-

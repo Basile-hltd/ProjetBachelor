@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project>
-  <executable name="dist/default/production/dsPIC_RF.X.production.elf">
+  <executable name="dist/default/debug/dsPIC_RF.X.debug.elf">
     <memory name="data">
       <units>bytes</units>
       <length>24576</length>
-      <used>70</used>
-      <free>24506</free>
+      <used>150</used>
+      <free>24426</free>
     </memory>
     <memory name="program">
       <units>bytes</units>
       <length>269184</length>
-      <used>3330</used>
-      <free>265854</free>
+      <used>3327</used>
+      <free>265857</free>
     </memory>
   </executable>
 </project>
