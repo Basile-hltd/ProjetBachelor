@@ -1,2 +1,6 @@
+from MainWindows import MainWindow
 
-print("Hello World")
+app = MainWindow()
+app.mainloop()
+app.Serial.Run = False
+app.Serial.MainThread.join()
