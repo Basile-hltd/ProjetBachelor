@@ -13,15 +13,53 @@ class Serial():
         self.BaudRate = 9600
         self.Timeout = 1
 
+        self.SerialPort = None
+
         self.MainThreadLock = threading.Lock()
+
+        self.ReadyToSend = True
+        self.SendBuffer = None
+
+        self.counter = 0
         
         self.MainThread = threading.Thread(target=self.MainLoop)
         self.MainThread.start()
 
     def MainLoop(self):
         while self.Run:
-            self.ScanCOM()
-            time.sleep(1)
+            if self.PortOpen == False:
+                self.ScanCOM()
+            
+            else:
+                try:
+                    if not self.SerialPort:
+                        self.SerialPort = serial.Serial(self.PortName, self.BaudRate, timeout=self.Timeout)
+                    
+                    else:
+                        with self.MainThreadLock: 
+                            if self.SendBuffer:
+                                self.ReadyToSend = False
+                                self.SerialPort.write(self.SendBuffer)
+                                # print("Sending : ", self.SendBuffer)
+                                self.SendBuffer = None
+                            
+                            else:
+                                self.ReadyToSend = True
+                        
+                        if self.counter > 9:
+                            self.counter = 0
+                            self.SerialPort.write(b"Ping\n")
+
+                        else: 
+                            self.counter += 1
+
+                except (serial.SerialException, OSError) as e:
+                    self.SerialPort = None
+                    # print("Erreur :",e)
+                    with self.MainThreadLock:
+                        self.PortOpen = False
+                
+            time.sleep(0.1)
 
     def ScanCOM(self):
         ports = serial.tools.list_ports.comports()
@@ -38,15 +76,14 @@ class Serial():
                         rep = ser.read_all()
                         print("Port", port.name, ":",rep)
 
-                        if rep == "dsPIC RF Ack":
+                        if rep == b'dsPIC RF Ack\n':
                             self.PortName = port.name
                         
-                        with self.MainThreadLock:
-                            self.PortOpen = True
+                            with self.MainThreadLock:
+                                self.PortOpen = True
                         
 
             except (serial.SerialException, OSError) as e:
+                # print("Erreur sur", port.name, ":",e)
                 with self.MainThreadLock:
                             self.PortOpen = False
-
-                print("Erreur sur", port.name, ":",e)

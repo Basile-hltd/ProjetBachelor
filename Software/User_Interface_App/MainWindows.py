@@ -3,6 +3,8 @@ from ScanningWidget import ScanningWidget
 import ColorsPalette
 import math 
 from Serial import Serial
+from MainMenuWidget import MainMenuWidget
+from Dashboard import Dashboard
 
 class MainWindow (tk.Tk):
     def __init__(self):
@@ -17,10 +19,14 @@ class MainWindow (tk.Tk):
         self.config(bg=ColorsPalette.Background)
 
         self.ScanningWidget = ScanningWidget(self)
+        self.MainMenuWidget = MainMenuWidget(self)
+        self.DashboardWidget = Dashboard(self)
 
         self.animationAngle = 0
 
         self.Serial = Serial()
+
+        self.SentFrequency = None
 
         self.MainWindowLoop()
 
@@ -42,9 +48,38 @@ class MainWindow (tk.Tk):
                     self.after(30, self.MainWindowLoop)
 
         elif self.MainState == "Main":
+            self.MainMenuWidget.pack(side='top', pady=100)
+
+            if self.MainMenuWidget.NewPage:
+                self.MainState = self.MainMenuWidget.NewPage
+                self.MainMenuWidget.NewPage = None
+                self.MainMenuWidget.pack_forget()
+
             with self.Serial.MainThreadLock:
                 if not self.Serial.PortOpen:
                     self.MainState = 'Scanning'
+                    self.MainMenuWidget.pack_forget()
+                    self.after(0, self.MainWindowLoop)
+                
+                else:
+                    self.after(30, self.MainWindowLoop)
+
+        elif self.MainState == "Dashboard":
+            self.DashboardWidget.pack(side='top', pady=100)
+
+            if self.DashboardWidget.counter != self.SentFrequency:
+                
+                with self.Serial.MainThreadLock:
+                    if self.Serial.ReadyToSend:
+                        self.Serial.ReadyToSend = False
+                        cmd = f"SetFreq{self.DashboardWidget.counter}"
+                        self.Serial.SendBuffer = cmd.encode()
+                        self.SentFrequency = self.DashboardWidget.counter
+
+            with self.Serial.MainThreadLock:
+                if not self.Serial.PortOpen:
+                    self.MainState = 'Scanning'
+                    self.DashboardWidget.pack_forget()
                     self.after(0, self.MainWindowLoop)
                 
                 else:
@@ -52,6 +87,6 @@ class MainWindow (tk.Tk):
 
         else:
             print("MainState Error")
-            pass
+            self.MainState = 'Scanning'
 
         
