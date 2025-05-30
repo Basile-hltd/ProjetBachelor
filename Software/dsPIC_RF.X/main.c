@@ -4,9 +4,11 @@
 #include "mcc_generated_files/watchdog.h"
 #include "mcc_generated_files/pin_manager.h"
 #include "mcc_generated_files/uart1.h"
+#include "mcc_generated_files/tmr1.h"
 
 void UartReadCallback(void);
 void UartWriteCallback(void);
+void TimerCallback(void);
 
 char write_buffer[16];
 
@@ -18,6 +20,7 @@ int main(void)
     
     UART1_SetTxInterruptHandler(&UartWriteCallback);
     UART1_SetRxInterruptHandler(&UartReadCallback);
+    TMR1_SetInterruptHandler(&TimerCallback);
     
     RGB_Red_SetHigh();
     
@@ -46,6 +49,9 @@ void UartReadCallback(){
                 strcpy(write_buffer, "dsPIC RF Ack\n");
                 UartWriteCallback();
             }
+            else if(!strcmp(read_buffer, "Ping")){
+                TMR1_Counter16BitSet(0);
+            }
             
             memset(read_buffer, 0, sizeof(read_buffer));
             index = 0;
@@ -67,4 +73,9 @@ void UartWriteCallback(){
         memset(write_buffer, 0, sizeof(write_buffer));
         index = 0;
     }
+}
+
+void TimerCallback(void){
+    RGB_Green_SetLow();
+    RGB_Red_SetHigh();
 }
