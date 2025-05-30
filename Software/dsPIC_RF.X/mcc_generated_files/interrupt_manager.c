@@ -52,12 +52,15 @@
 */
 void INTERRUPT_Initialize (void)
 {
-    //    MICI: I2C1 Master Event
+    //    ADCAN24: ADC AN24 Convert Done
     //    Priority: 1
-        IPC4bits.MI2C1IP = 1;
-    //    SICI: I2C1 Slave Event
+        IPC48bits.ADCAN24IP = 1;
+    //    ADCAN20: ADC AN20 Convert Done
     //    Priority: 1
-        IPC4bits.SI2C1IP = 1;
+        IPC27bits.ADCAN20IP = 1;
+    //    ADCAN25: ADC AN25 Convert Done
+    //    Priority: 1
+        IPC48bits.ADCAN25IP = 1;
     //    UEVTI: UART1 Event
     //    Priority: 1
         IPC47bits.U1EVTIP = 1;
@@ -70,7 +73,10 @@ void INTERRUPT_Initialize (void)
     //    URXI: UART1 RX
     //    Priority: 1
         IPC2bits.U1RXIP = 1;
-    //    TI: Timer 1
+    //    MICI: I2C1 Master Event
     //    Priority: 1
-        IPC0bits.T1IP = 1;
+        IPC4bits.MI2C1IP = 1;
+    //    TI: Timer 1
+    //    Priority: 2
+        IPC0bits.T1IP = 2;
 }

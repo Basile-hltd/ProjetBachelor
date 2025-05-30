@@ -56,6 +56,152 @@
 */
 /**
   @Summary
+    Sets the GPIO pin, RE0, high using LATE0.
+
+  @Description
+    Sets the GPIO pin, RE0, high using LATE0.
+
+  @Preconditions
+    The RE0 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Set RE0 high (1)
+    channel_AN20_SetHigh();
+    </code>
+
+*/
+#define channel_AN20_SetHigh()          (_LATE0 = 1)
+/**
+  @Summary
+    Sets the GPIO pin, RE0, low using LATE0.
+
+  @Description
+    Sets the GPIO pin, RE0, low using LATE0.
+
+  @Preconditions
+    The RE0 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Set RE0 low (0)
+    channel_AN20_SetLow();
+    </code>
+
+*/
+#define channel_AN20_SetLow()           (_LATE0 = 0)
+/**
+  @Summary
+    Toggles the GPIO pin, RE0, using LATE0.
+
+  @Description
+    Toggles the GPIO pin, RE0, using LATE0.
+
+  @Preconditions
+    The RE0 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Toggle RE0
+    channel_AN20_Toggle();
+    </code>
+
+*/
+#define channel_AN20_Toggle()           (_LATE0 ^= 1)
+/**
+  @Summary
+    Reads the value of the GPIO pin, RE0.
+
+  @Description
+    Reads the value of the GPIO pin, RE0.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    uint16_t portValue;
+
+    // Read RE0
+    postValue = channel_AN20_GetValue();
+    </code>
+
+*/
+#define channel_AN20_GetValue()         _RE0
+/**
+  @Summary
+    Configures the GPIO pin, RE0, as an input.
+
+  @Description
+    Configures the GPIO pin, RE0, as an input.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Sets the RE0 as an input
+    channel_AN20_SetDigitalInput();
+    </code>
+
+*/
+#define channel_AN20_SetDigitalInput()  (_TRISE0 = 1)
+/**
+  @Summary
+    Configures the GPIO pin, RE0, as an output.
+
+  @Description
+    Configures the GPIO pin, RE0, as an output.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Sets the RE0 as an output
+    channel_AN20_SetDigitalOutput();
+    </code>
+
+*/
+#define channel_AN20_SetDigitalOutput() (_TRISE0 = 0)
+/**
+  @Summary
     Sets the GPIO pin, RE13, high using LATE13.
 
   @Description

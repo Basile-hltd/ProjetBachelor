@@ -106,6 +106,8 @@ void TMR1_Initialize (void)
     IEC0bits.T1IE = true;
 	
     tmr1_obj.timerElapsed = false;
+    
+    TMR1_Stop();
 
 }
 

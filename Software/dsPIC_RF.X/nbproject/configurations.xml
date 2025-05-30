@@ -20,6 +20,10 @@
         <itemPath>mcc_generated_files/uart1.h</itemPath>
         <itemPath>mcc_generated_files/system_types.h</itemPath>
         <itemPath>mcc_generated_files/tmr1.h</itemPath>
+        <itemPath>mcc_generated_files/adc1.h</itemPath>
+        <itemPath>mcc_generated_files/adc_module_features.h</itemPath>
+        <itemPath>mcc_generated_files/delay.h</itemPath>
+        <itemPath>mcc_generated_files/dma.h</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
@@ -32,6 +36,9 @@
       <logicalFolder name="MCC Generated Files"
                      displayName="MCC Generated Files"
                      projectFiles="true">
+        <logicalFolder name="docs" displayName="docs" projectFiles="true">
+          <itemPath>mcc_generated_files/docs/delay.dox</itemPath>
+        </logicalFolder>
         <itemPath>mcc_generated_files/mcc.c</itemPath>
         <itemPath>mcc_generated_files/system.c</itemPath>
         <itemPath>mcc_generated_files/pin_manager.c</itemPath>
@@ -43,6 +50,9 @@
         <itemPath>mcc_generated_files/where_was_i.s</itemPath>
         <itemPath>mcc_generated_files/uart1.c</itemPath>
         <itemPath>mcc_generated_files/tmr1.c</itemPath>
+        <itemPath>mcc_generated_files/adc1.c</itemPath>
+        <itemPath>mcc_generated_files/delay.c</itemPath>
+        <itemPath>mcc_generated_files/dma.c</itemPath>
       </logicalFolder>
       <itemPath>main.c</itemPath>
     </logicalFolder>
