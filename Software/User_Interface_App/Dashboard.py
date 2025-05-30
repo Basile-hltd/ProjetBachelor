@@ -65,5 +65,4 @@ class Dashboard(tk.Frame):
                  self.counter -= 1
 
         self.freq = self.minfreq + self.freqstep * self.counter
-        #self.FrequencyLabelValue.config(text=f"{self.freq:.2f} MHz")
-        self.FrequencyLabelValue.config(text=f"{self.counter} MHz")
+        self.FrequencyLabelValue.config(text=f"{self.freq:.2f} MHz")

@@ -13,7 +13,7 @@ class MainWindow (tk.Tk):
         self.MainState = "Scanning"
 
         self.title("dsPIC RF")
-        self.geometry("1600x900+160-1300")
+        self.geometry("1600x900+150-1200")
         self.resizable(False, False)
 
         self.config(bg=ColorsPalette.Background)

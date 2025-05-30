@@ -36,6 +36,11 @@ class Serial():
                         self.SerialPort = serial.Serial(self.PortName, self.BaudRate, timeout=self.Timeout)
                     
                     else:
+
+                        if self.SerialPort.in_waiting:
+                            rep = self.SerialPort.read_all()
+                            # print(rep)
+
                         with self.MainThreadLock: 
                             if self.SendBuffer:
                                 self.ReadyToSend = False
