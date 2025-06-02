@@ -15,7 +15,7 @@ class MainMenuWidget(tk.Frame):
         self.ButtonDashboard = Button(self, "Tableau de bord", self.ButtonDashboardCallback)
         self.ButtonDashboard.pack(pady=20)
 
-        self.ButtonFrequency = Button(self, "Balayage fréquentielle", self.ButtonFrequencyCallback)
+        self.ButtonFrequency = Button(self, "Balayage fréquentiel", self.ButtonFrequencyCallback)
         self.ButtonFrequency.pack(pady=20)
 
         self.ButtonTime = Button(self, "Mesure temporelle", self.ButtonTimeCallback)
@@ -27,7 +27,7 @@ class MainMenuWidget(tk.Frame):
         self.NewPage = 'Dashboard'
 
     def ButtonFrequencyCallback(self, event):
-        pass
+        self.NewPage = 'Frequency'
 
     def ButtonTimeCallback(self, event):
         pass

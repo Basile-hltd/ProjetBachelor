@@ -20,7 +20,12 @@ class Serial():
         self.ReadyToSend = True
         self.SendBuffer = None
 
+        self.ReadBuffer = ""
+        self.cmdList = []
+
         self.counter = 0
+
+        self.lastVoltageValue = 0
         
         self.MainThread = threading.Thread(target=self.MainLoop)
         self.MainThread.start()
@@ -39,7 +44,21 @@ class Serial():
 
                         if self.SerialPort.in_waiting:
                             rep = self.SerialPort.read_all()
-                            # print(rep)
+                            self.ReadBuffer += rep.decode()
+                            cmdList = self.ReadBuffer.split("\n")
+
+                            for cmd in cmdList:
+                                try:
+                                    if cmd.startswith("Pong"):
+                                        pass
+
+                                    elif cmd.startswith("Volt:"):
+                                        with self.MainThreadLock:
+                                            self.lastVoltageValue = int(cmd.split(":")[1])
+                                
+                                except:
+                                    pass
+                                    
 
                         with self.MainThreadLock: 
                             if self.SendBuffer:
