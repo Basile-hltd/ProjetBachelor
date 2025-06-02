@@ -18,12 +18,17 @@ void UartReadCallback(void);
 void UartWriteCallback(void);
 void TimerCallback(void);
 void ADCCallback(void);
+bool UartSendArray(char array[16]);
 
 char uart_write_buffer[16];
 bool uart_write_ready = true;
 
 bool connected = false;
 bool flagDash = false;
+bool flagIdle = false;
+bool flagFreq = false;
+
+unsigned int SoftFilter[11];
 
 int main(void)
 {
@@ -49,6 +54,7 @@ int main(void)
     TMR1_Start();
     
     unsigned int voltage;
+    unsigned int sent_voltage;
     
     while (1)
     {
@@ -71,29 +77,73 @@ int main(void)
             case Idle:
                 RGB_Red_SetLow();
                 RGB_Blue_SetLow();
-                RGB_Green_SetHigh();
+                RGB_Green_SetLow();
                 
                 if(!connected){
                     MainState = Disconnected;
                 }
-                
-                if(flagDash){
+                else if(flagIdle){
+                    flagIdle = false;
+                }
+                else if(flagDash){
                     flagDash = false;
                     MainState = Dashboard;
+                }
+                else if(flagFreq){
+                    flagFreq = false;
+                    MainState = FrequencySweep;
                 }
                 
                 break;
                 
             case Dashboard:
-                RGB_Red_SetHigh();
+                RGB_Red_SetLow();
                 RGB_Blue_SetLow();
                 RGB_Green_SetHigh();
                 
                 if(!connected){
                     MainState = Disconnected;
                 }
-                
-                
+                else if(flagDash){
+                    flagDash = false;
+                }
+                else if(flagIdle){
+                    flagIdle = false;
+                    MainState = Idle;
+                }
+                else{
+                    
+                    ADC1_SoftwareTriggerEnable();
+                    while(!ADC1_IsConversionComplete(channel_AN20));
+                    voltage = ADC1_ConversionResultGet(channel_AN20);
+                    
+                    SoftFilter[SoftFilter[0]] = voltage;
+                    
+                    voltage = 0;
+                    
+                    for(int i=1; i<11; i++){
+                        voltage = voltage + SoftFilter[i];
+                    }
+                    
+                    voltage = voltage / 10;
+                    
+                    if (SoftFilter[0] < 10){
+                        SoftFilter[0]++;
+                    }
+                    else{
+                        SoftFilter[0] = 1;
+                    }
+                    
+                    if(voltage != sent_voltage){
+                        char send_voltage[16];
+                        memset(send_voltage, 0, sizeof(send_voltage));
+                        snprintf(send_voltage, sizeof(send_voltage), "Volt:%u\n", voltage);
+
+                        UartSendArray(send_voltage);
+                        
+                        sent_voltage = voltage;
+                    }
+                }
                 
                 break;
                 
@@ -104,6 +154,13 @@ int main(void)
                 
                 if(!connected){
                     MainState = Disconnected;
+                }
+                else if(flagFreq){
+                    flagFreq = false;
+                }
+                else if(flagIdle){
+                    flagIdle = false;
+                    MainState = Idle;
                 }
                 
                 break;
@@ -140,25 +197,26 @@ void UartReadCallback(){
             
             TMR1_Counter16BitSet(0);
             
-            read_buffer[index] = '\0';
-            
+            read_buffer[index] = '\0';            
             if(!strcmp(read_buffer, "Probe dsPIC RF")){
                 TMR1_Counter16BitSet(0);
                 TMR1_GetElapsedThenClear();
                 
-                strcpy(uart_write_buffer, "dsPIC RF Ack\n");
-                UartWriteCallback();
+                UartSendArray("dsPIC RF Ack\n");
                 
                 connected = true;
             }
             else if(!strcmp(read_buffer, "Ping")){
-                if(uart_write_ready){
-                    strcpy(uart_write_buffer, "Pong\n");
-                    UartWriteCallback();
-                }
+                UartSendArray("Pong\n");
             }
-            else if(!strcmp(read_buffer, "GoDash")){
+            else if(!strcmp(read_buffer, "SetStaDash")){
                 flagDash = true;
+            }
+            else if(!strcmp(read_buffer, "SetStaIdle")){
+                flagIdle = true;
+            }
+            else if(!strcmp(read_buffer, "SetStaFre")){
+                flagFreq = true;
             }
             
             memset(read_buffer, 0, sizeof(read_buffer));
@@ -171,7 +229,7 @@ void UartReadCallback(){
 }
 
 void UartWriteCallback(){
-    static index = 0;
+    static char index = 1;
     uart_write_ready = false;
     
     if(uart_write_buffer[index] != '\0'){
@@ -180,8 +238,20 @@ void UartWriteCallback(){
     }
     else{
         memset(uart_write_buffer, 0, sizeof(uart_write_buffer));
-        index = 0;
+        index = 1;
         uart_write_ready = true;
+    }
+}
+
+bool UartSendArray(char array[16]){
+    if(uart_write_ready){
+        strcpy(uart_write_buffer, array);
+        UART1_Write(uart_write_buffer[0]);
+        
+        return true;
+    }
+    else{
+        return false;
     }
 }
 
