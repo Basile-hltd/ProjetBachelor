@@ -56,6 +56,298 @@
 */
 /**
   @Summary
+    Sets the GPIO pin, RC8, high using LATC8.
+
+  @Description
+    Sets the GPIO pin, RC8, high using LATC8.
+
+  @Preconditions
+    The RC8 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Set RC8 high (1)
+    SDA_SetHigh();
+    </code>
+
+*/
+#define SDA_SetHigh()          (_LATC8 = 1)
+/**
+  @Summary
+    Sets the GPIO pin, RC8, low using LATC8.
+
+  @Description
+    Sets the GPIO pin, RC8, low using LATC8.
+
+  @Preconditions
+    The RC8 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Set RC8 low (0)
+    SDA_SetLow();
+    </code>
+
+*/
+#define SDA_SetLow()           (_LATC8 = 0)
+/**
+  @Summary
+    Toggles the GPIO pin, RC8, using LATC8.
+
+  @Description
+    Toggles the GPIO pin, RC8, using LATC8.
+
+  @Preconditions
+    The RC8 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Toggle RC8
+    SDA_Toggle();
+    </code>
+
+*/
+#define SDA_Toggle()           (_LATC8 ^= 1)
+/**
+  @Summary
+    Reads the value of the GPIO pin, RC8.
+
+  @Description
+    Reads the value of the GPIO pin, RC8.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    uint16_t portValue;
+
+    // Read RC8
+    postValue = SDA_GetValue();
+    </code>
+
+*/
+#define SDA_GetValue()         _RC8
+/**
+  @Summary
+    Configures the GPIO pin, RC8, as an input.
+
+  @Description
+    Configures the GPIO pin, RC8, as an input.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Sets the RC8 as an input
+    SDA_SetDigitalInput();
+    </code>
+
+*/
+#define SDA_SetDigitalInput()  (_TRISC8 = 1)
+/**
+  @Summary
+    Configures the GPIO pin, RC8, as an output.
+
+  @Description
+    Configures the GPIO pin, RC8, as an output.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Sets the RC8 as an output
+    SDA_SetDigitalOutput();
+    </code>
+
+*/
+#define SDA_SetDigitalOutput() (_TRISC8 = 0)
+/**
+  @Summary
+    Sets the GPIO pin, RC9, high using LATC9.
+
+  @Description
+    Sets the GPIO pin, RC9, high using LATC9.
+
+  @Preconditions
+    The RC9 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Set RC9 high (1)
+    SCL_SetHigh();
+    </code>
+
+*/
+#define SCL_SetHigh()          (_LATC9 = 1)
+/**
+  @Summary
+    Sets the GPIO pin, RC9, low using LATC9.
+
+  @Description
+    Sets the GPIO pin, RC9, low using LATC9.
+
+  @Preconditions
+    The RC9 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Set RC9 low (0)
+    SCL_SetLow();
+    </code>
+
+*/
+#define SCL_SetLow()           (_LATC9 = 0)
+/**
+  @Summary
+    Toggles the GPIO pin, RC9, using LATC9.
+
+  @Description
+    Toggles the GPIO pin, RC9, using LATC9.
+
+  @Preconditions
+    The RC9 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Toggle RC9
+    SCL_Toggle();
+    </code>
+
+*/
+#define SCL_Toggle()           (_LATC9 ^= 1)
+/**
+  @Summary
+    Reads the value of the GPIO pin, RC9.
+
+  @Description
+    Reads the value of the GPIO pin, RC9.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    uint16_t portValue;
+
+    // Read RC9
+    postValue = SCL_GetValue();
+    </code>
+
+*/
+#define SCL_GetValue()         _RC9
+/**
+  @Summary
+    Configures the GPIO pin, RC9, as an input.
+
+  @Description
+    Configures the GPIO pin, RC9, as an input.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Sets the RC9 as an input
+    SCL_SetDigitalInput();
+    </code>
+
+*/
+#define SCL_SetDigitalInput()  (_TRISC9 = 1)
+/**
+  @Summary
+    Configures the GPIO pin, RC9, as an output.
+
+  @Description
+    Configures the GPIO pin, RC9, as an output.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Sets the RC9 as an output
+    SCL_SetDigitalOutput();
+    </code>
+
+*/
+#define SCL_SetDigitalOutput() (_TRISC9 = 0)
+/**
+  @Summary
     Sets the GPIO pin, RE0, high using LATE0.
 
   @Description

@@ -73,9 +73,6 @@ void INTERRUPT_Initialize (void)
     //    URXI: UART1 RX
     //    Priority: 1
         IPC2bits.U1RXIP = 1;
-    //    MICI: I2C1 Master Event
-    //    Priority: 1
-        IPC4bits.MI2C1IP = 1;
     //    TI: Timer 1
     //    Priority: 2
         IPC0bits.T1IP = 2;

@@ -63,7 +63,7 @@ void PIN_MANAGER_Initialize (void)
      ***************************************************************************/
     LATA = 0x0000;
     LATB = 0x0000;
-    LATC = 0x0000;
+    LATC = 0x0300;
     LATD = 0x0010;
     LATE = 0x0000;
 
@@ -72,7 +72,7 @@ void PIN_MANAGER_Initialize (void)
      ***************************************************************************/
     TRISA = 0x001F;
     TRISB = 0xFFFD;
-    TRISC = 0xFFFF;
+    TRISC = 0xFCFF;
     TRISD = 0xFFEF;
     TRISE = 0x1FFF;
 
@@ -95,7 +95,7 @@ void PIN_MANAGER_Initialize (void)
      ***************************************************************************/
     ODCA = 0x0000;
     ODCB = 0x0000;
-    ODCC = 0x0000;
+    ODCC = 0x0300;
     ODCD = 0x0000;
     ODCE = 0x0000;
 
@@ -113,8 +113,8 @@ void PIN_MANAGER_Initialize (void)
      ***************************************************************************/
     __builtin_write_RPCON(0x0000); // unlock PPS
 
-    RPINR18bits.U1RXR = 0x0043;    //RD3->UART1:U1RX
     RPOR18bits.RP68R = 0x0001;    //RD4->UART1:U1TX
+    RPINR18bits.U1RXR = 0x0043;    //RD3->UART1:U1RX
 
     __builtin_write_RPCON(0x0800); // lock PPS
 }
