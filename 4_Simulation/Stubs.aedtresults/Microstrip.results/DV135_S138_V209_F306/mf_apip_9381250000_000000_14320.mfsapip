@@ -1,0 +1,68 @@
+$begin date_time_stamp
+	timesinceepock:1755696965
+$end date_time_stamp
+$begin sysinfo
+	os:win
+	cpuid:'Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz'
+	cpumodel:NA
+	cpubrand:intel
+	cpuPhyCores:6
+	cpuLogCores:12
+	cpufreqkhz:0
+	cpucachelinesize:64
+	cpuestllcmb:12
+	cpuestgflops:153.6
+	cpuestbwkbps:37.5
+	numnumanodes:1
+	virtualmemkb:1.37439e+11
+	pagesizekb:4096
+$end sysinfo
+$begin matsolver
+	$begin matsolverinfo
+		solvertype:shared_memory
+		solverprecision:double
+		solversymmetry:complex_symm
+		matrixdim:7986
+		matrixbw:20.001
+		matrixnnz:159728
+		rootdim:190
+		mathlib:mkl
+		nummpitasks:1
+		numthreadpermpitasks:0
+	$end matsolverinfo
+	$begin matsolveranalysis
+		analysysstatus:valid
+		numsupernodes:711
+		factornnz:860257
+		factorestflops:259325726
+		fbsestflops:2733170
+		rootfactestflops:2287377
+		rootfbsestflops:18050
+		analysistimesec:0.009288
+		analysismemkb:4152
+	$end matsolveranalysis
+	$begin matsolverfact
+		fatorizationstatus:valid
+		factorizationnumcores:1
+		factorizationtimesec:0.049986
+		factorizationmentotalkb:18376
+	$end matsolverfact
+	$begin matsolverfbs
+		fbstatus:valid
+		fbstype:fullsolve
+		fbsmt:false
+		fbsmrhs:false
+		fbsnumcores:1
+		fbsnumsolves:2
+		fbsavgsolvetime1solvesec:0.0052654
+		fbscputimesec:0.0105308
+		fbsmemorytotalkb:21276
+	$end matsolverfbs
+	$begin matsolverprofile
+		maxmemkb:21276
+		diskkb:0
+		totalrealtimesec:-1
+		totalcputimesec:-1
+		totaltimesec:-1
+	$end matsolverprofile
+$end matsolver

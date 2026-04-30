@@ -1,0 +1,50 @@
+SimValueCacheVersionID=1
+$begin 'SimValueInfos'
+	NextUniqueID=2
+	MoveBackwards=false
+	$begin 'SimValue'
+		ID=0
+		$begin 'SimValueParams'
+			QuantityName='St(Trace_T1,Trace_T1)'
+			ValueState(90, 15, 1, 2)
+			MatrixSize(0, 0)
+		$end 'SimValueParams'
+	$end 'SimValue'
+	$begin 'SimValue'
+		ID=1
+		$begin 'SimValueParams'
+			QuantityName='St(Trace_T2,Trace_T1)'
+			ValueState(90, 15, 1, 2)
+			MatrixSize(0, 0)
+		$end 'SimValueParams'
+	$end 'SimValue'
+$end 'SimValueInfos'
+$begin 'SimValueCache'
+	$begin 'DesignMap'
+		DesignID=0
+		$begin 'SolutionMap'
+			$begin 'ContextMap'
+				SolutionID=133
+			$end 'ContextMap'
+			$begin 'ContextMap'
+				SolutionID=134
+			$end 'ContextMap'
+			$begin 'ContextMap'
+				SolutionID=138
+				$begin 'VersionMap'
+					$begin 'ReportTypeSolnDef'
+						ReportType=1
+						SimValueContext(3, 0, 2, 0, false, false, -1, 1, 0, 1, 1, '', 0, 0)
+					$end 'ReportTypeSolnDef'
+					$begin 'MajorVVMap'
+						VersionID=209
+						$begin 'MinorVVMap'
+							MajorVariation='CopperThickness=\'18um\' PCB_Height=\'1.6000000000000001mm\' PCB_Lenght=\'35mm\' PCB_Width=\'60mm\' StubLenght=\'40mm\' TraceWidth=\'3mm\''
+							MinorCacheFile='min525C1220175569847734.tmp'
+						$end 'MinorVVMap'
+					$end 'MajorVVMap'
+				$end 'VersionMap'
+			$end 'ContextMap'
+		$end 'SolutionMap'
+	$end 'DesignMap'
+$end 'SimValueCache'

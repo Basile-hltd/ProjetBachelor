@@ -1,0 +1,5 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "RF_Lib")(type "KiCad")(uri "${KIPRJMOD}/RF_Lib.kicad_sym")(options "")(descr ""))
+  (lib (name "MikroLib")(type "KiCad")(uri "${KIPRJMOD}/MikroLib.kicad_sym")(options "")(descr ""))
+)

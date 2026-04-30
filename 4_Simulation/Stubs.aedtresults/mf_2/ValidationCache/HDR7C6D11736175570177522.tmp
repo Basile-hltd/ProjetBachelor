@@ -1,0 +1,7 @@
+$begin 'ValidationCache'
+	$begin 'OneValidationResult'
+		Variation='copper_thikness=\'18um\' gap=\'0.29999999999999999mm\' PCB_Height=\'1.6000000000000001mm\' PCB_Lenght=\'40mm\' PCB_Width=\'100mm\' StubLenght=\'74mm\' TraceWidth=\'2.2000000000000002mm\''
+		Status=true
+		FileName='VI7D2411736175570183124.tmp'
+	$end 'OneValidationResult'
+$end 'ValidationCache'

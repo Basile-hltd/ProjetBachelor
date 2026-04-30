@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "mikroBus")(type "KiCad")(uri "${KIPRJMOD}/mikroBus.pretty")(options "")(descr ""))
+)
